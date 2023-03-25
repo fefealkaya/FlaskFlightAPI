@@ -1,0 +1,148 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Flight API"
+  },
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic",
+      "description": "Basic Authentication using a username and password."
+    }
+  },
+  "paths": {
+    "/flights": {
+      "get": {
+        "summary": "Get flights by date, departure, and arrival.",
+        "description": "Returns a list of flights that match the specified date, departure, and arrival cities.",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date of the flight, in YYYY-MM-DD format.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "departure",
+            "in": "query",
+            "description": "The departure city of the flight.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "arrival",
+            "in": "query",
+            "description": "The arrival city of the flight.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "num_passengers",
+            "in": "query",
+            "description": "The number of passengers for the flight.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with a list of flights.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "flights": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "description": "The date of the flight, in YYYY-MM-DD format."
+                      },
+                      "departure": {
+                        "type": "string",
+                        "description": "The departure city of the flight."
+                      },
+                      "arrival": {
+                        "type": "string",
+                        "description": "The arrival city of the flight."
+                      },
+                      "seats": {
+                        "type": "integer",
+                        "description": "The number of available seats for the flight."
+                      },
+                      "flight_no": {
+                        "type": "string",
+                        "description": "The flight number."
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "No flights found"
+          }
+        }
+      }
+    },
+    "/buy": {
+      "post": {
+        "summary": "Buy a ticket for a flight.",
+        "description": "Books a ticket for a flight that matches the specified date, departure, and arrival cities.",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "The date of the flight, in YYYY-MM-DD format.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "departure",
+            "in": "query",
+            "description": "The departure city of the flight.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "arrival",
+            "in": "query",
+            "description": "The arrival city of the flight.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ticket successfully booked."
+          },
+          "400": {
+            "description": "Flight is full."
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "No flights found"
+          }
+        }
+      }
+    }
+  }
+}

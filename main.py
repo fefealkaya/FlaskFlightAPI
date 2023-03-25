@@ -1,8 +1,9 @@
 import urllib
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from faker import Faker
+from flask_swagger import swagger
 import random
 
 # ODBC sürücüsü kullanarak bağlantı dizesini oluşturuluyor.
@@ -15,6 +16,11 @@ app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+
+
+@app.route('/swagger')
+def get_docs():
+    return render_template('swaggerui.html')
 
 
 class Flight(db.Model):
@@ -75,10 +81,6 @@ def buy_ticket():
         return jsonify({'message': 'Flight is Full'}), 400
 
     flight.seats -= 1
-
-    if(flight.seats < 1):
-        db.session.delete(flight)
-
     db.session.commit()
 
     return jsonify({'message': f'Ticket Booked for  Flight {flight.flight_no}'})
@@ -110,10 +112,11 @@ def fill_flight_database(num_records):
 # db.create_all()
 # fill_flight_database(450)
 
-for flight in Flight.query.all():
-    print(f"{flight.id}|{flight.date}|{flight.flight_no}|{flight.departure}|{flight.arrival}|{flight.seats}")
+# for flight in Flight.query.all():
+#     print(f"{flight.id}|{flight.date}|{flight.flight_no}|{flight.departure}|{flight.arrival}|{flight.seats}")
 
-print(len(Flight.query.all()))
+# print(len(Flight.query.all()))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
