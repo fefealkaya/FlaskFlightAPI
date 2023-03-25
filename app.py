@@ -18,7 +18,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
-@app.route('/swagger')
+@app.route('/')
 def get_docs():
     return render_template('swaggerui.html')
 
@@ -119,4 +119,4 @@ def fill_flight_database(num_records):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
