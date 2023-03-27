@@ -110,13 +110,7 @@ def fill_flight_database(num_records):
 
 # İlk kez oluşturma ve tabloyu random değerlerle doldurmak için kullanıldı.
 # db.create_all()
-# fill_flight_database(450)
-
-# for flight in Flight.query.all():
-#     print(f"{flight.id}|{flight.date}|{flight.flight_no}|{flight.departure}|{flight.arrival}|{flight.seats}")
-
-# print(len(Flight.query.all()))
-
+# fill_flight_database(700)
 
 if __name__ == '__main__':
     app.run(debug=False)
