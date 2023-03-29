@@ -111,5 +111,6 @@ def fill_flight_database(num_records):
 # db.create_all()
 # fill_flight_database(700)
 
+
 if __name__ == '__main__':
     app.run(debug=False)
