@@ -3,7 +3,6 @@ import urllib
 from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from faker import Faker
-from flask_swagger import swagger
 import random
 
 # ODBC sürücüsü kullanarak bağlantı dizesini oluşturuluyor.
